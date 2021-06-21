@@ -1,0 +1,63 @@
+﻿@model Spice.Models.ViewModels.HomeIndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<br />
+
+<div class="border">
+    <div class="carousel" data-ride="carousel" data-interval="2500">
+        @for (int i = 0; i < Model.CouponList.Count(); i++)
+        {
+            var base64 = Convert.ToBase64String(Model.CouponList.ElementAt(i).Picture);
+            var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+            if (i == 0)
+            {
+                <div class="carousel-item active">
+                    <img src="@imgsrc" height="50px" class="d-block w-100" />
+                </div>
+            }
+            else
+            {
+                <div class="carousel-item">
+                    <img src="@imgsrc" height="50px" class="d-block w-100" />
+                </div>
+            }
+        }
+    </div>
+</div>
+<br />
+<br />
+<div class="container shadow bg-white">
+    <br/>
+    <ul id="menu_filters" class="menu-filter-list list-inline text-center">
+        <li class="active btn btn-secondary list-inline-item ml-1 mr-1" data-filter=".menu-restaurant">show all</li>
+        @foreach (var item in Model.CategoryList)
+        {
+            <li class="list-inline-item ml-1 mr-1" data-filter=".@item.Name.Replace(" ",string.Empty)">@item.Name</li>
+        }
+    </ul>
+    @foreach (var category in Model.CategoryList)
+    {
+        <div class="row">
+            <partial name="_ThumbnailAreaPartial" model="@Model.MenuItemsList.Where(c=>c.Category.Name.Equals(category.Name))" />
+        </div>
+    }
+</div>
+@section Scripts{
+    <script>
+        var posts = $('.post');
+        (function ($) {
+            $("#menu_filters li").click(function () {
+                $("#menu_filters li").removeClass('active btn btn-secondary');
+                $(this).addClass('active btn btn-secondary');
+
+                var selectedFilter = $(this).data("filter");
+                $('.menu-restaurant').fadeOut();
+
+                setTimeout(function () {
+                    $(selectedFilter).slideDown();
+                }, 300);
+            });
+        })(jQuery);
+    </script>
+}

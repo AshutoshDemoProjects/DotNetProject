@@ -1,0 +1,98 @@
+﻿@using Spice.Utility
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Spice</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="~/css/jquery-ui.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css" integrity="sha512-GgUcFJ5lgRdt/8m5A0d0qEnsoi8cDoF0d6q+RirBPtL423Qsj5cI9OxQ5hWvPi5jjvTLM/YhaaFuIeWCLi6lyQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Spice</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if( User.IsInRole( StaticDetails.ManagerUser ) )
+                        {
+                            <li class="nav-item dropdown text-white-50">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true">Content Management </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="SubCategory" asp-action="Index">Sub Category</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="MenuItem" asp-action="Index">Menu Item</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Coupon" asp-action="Index">Coupons</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a>
+                                </div>
+                            </li>
+                        }
+                        @if( User.IsInRole( StaticDetails.KitchenUser ) || User.IsInRole( StaticDetails.FrontDeskUser ) || User.IsInRole( StaticDetails.ManagerUser ) )
+                        {
+                            <li class="nav-item dropdown text-white-50">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true">Orders</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                    @if( User.IsInRole( StaticDetails.KitchenUser ) || User.IsInRole( StaticDetails.ManagerUser ) )
+                                    {
+                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Order" asp-action="ManageOrder">Manage Order</a>
+                                    }
+                                    @if( User.IsInRole( StaticDetails.FrontDeskUser ) || User.IsInRole( StaticDetails.ManagerUser ) )
+                                    {
+                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Order" asp-action="OrderPickup">Order Pickup</a>
+                                    }
+                                </div>
+                            </li>
+                        }
+                        @if( User.IsInRole( StaticDetails.ManagerUser ) || User.IsInRole( StaticDetails.CustomerEndUser ) || User.IsInRole( StaticDetails.FrontDeskUser ) || User.IsInRole( StaticDetails.KitchenUser ) )
+                        {
+                            <li class="nav-item">
+                                <a asp-area="Customer" asp-controller="Order" asp-action="OrderHistory" class="nav-link">OrderHistory</a>
+                            </li>
+                        }
+
+                        @if( HttpContextAccessor.HttpContext.Session.GetInt32( StaticDetails.ssShoppingCartCount ) != null )
+                        {
+                            <li class="nav-item">
+                                @{
+                                    var cnt = HttpContextAccessor.HttpContext.Session.GetInt32( StaticDetails.ssShoppingCartCount );
+                                }
+                                <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index"><span class="fas fa-shopping-cart"></span>&nbsp; (@cnt)</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top pl-3 footer text-white-50" style="background-color:#343a40;">
+        <div class="container">
+            &copy; 2021 - Spice
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
