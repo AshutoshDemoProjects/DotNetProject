@@ -20,18 +20,18 @@ On nevigation bar you can see 3 tabs
 
 
 1. ```Once you logged in you will see the home page where you will see all the food items, you can categorised food items, on the basis of categories (like apetizer, main course, desert, and beverages). Also you can click on the particular item to see details and place your you can add the quality and place your order by add to cart and it will get added to cart. you can see the count in cart. ```
-<img src="Screenshorts/Spice/Customer/1 Home.png">
-<img src="Screenshorts/Spice/Customer/2 Details.png">
+<img src="Screenshots/Spice/Customer/1 Home.png">
+<img src="Screenshots/Spice/Customer/2 Details.png">
 
 2. ```Cart item show you the items aded in the cart.```
-<img src="Screenshorts/Spice/Customer/3 Show Cart.png">
-<img src="Screenshorts/Spice/Customer/4 Order Summery.png">
-<img src="Screenshorts/Spice/Customer/5 Payment details.png">
+<img src="Screenshots/Spice/Customer/3 Show Cart.png">
+<img src="Screenshots/Spice/Customer/4 Order Summery.png">
+<img src="Screenshots/Spice/Customer/5 Payment details.png">
 
 3. ```Order History will show all the post and client orders and you can track order from here, also you can apply coupons from their as well. There is a button called continue shopping, On clicking on that you will be redirected to the home page, where you can select more produts. There is on more button called summary when you click on that, you have to fill all the details (like your name, Number the date you want your food delivery and at what time you want it. Then click on place order. an dialoge box will get open, where you have to make your payment. After filling the details click on payment your order will be placed.```
-<img src="Screenshorts/Spice/Customer/6 Order History.png">
-<img src="Screenshorts/Spice/Customer/7 Order Details.png">
-<img src="Screenshorts/Spice/Customer/8 Order Status.png">
+<img src="Screenshots/Spice/Customer/6 Order History.png">
+<img src="Screenshots/Spice/Customer/7 Order Details.png">
+<img src="Screenshots/Spice/Customer/8 Order Status.png">
 
 
 
